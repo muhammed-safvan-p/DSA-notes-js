@@ -369,6 +369,12 @@ console.log(linearSearch(numbers, 30)); // Output: 2
 | **Ω (Omega)** | Best case | Lower bound | Takes at least this much time |
 | **Θ (Theta)** | Average case | Tight bound | Typical expected time |
 
+### 🎯 Time Complexity vs Asymptotic Analysis
+
+> **Time complexity tells how much time an algorithm takes based on input size.  
+> Asymptotic analysis is the method we use to evaluate that time complexity for large inputs by ignoring constants and lower-order terms.**
+
+
 ## 🧩 Algorithm Efficiency
 
 **(Time Complexity & Space Complexity** 
@@ -710,19 +716,16 @@ Like a **rubber bag** — it expands or shrinks depending on how much you put in
 
 ## ⚡ 2. What Is a Memory Leak?
 
-A **Memory Leak** happens when your program **keeps using memory but doesn’t release it**,
+> **A memory leak happens when a program allocates memory but fails to release it even when it is no longer needed. This usually occurs because references to that memory still exist, so the garbage collector cannot free it. Over time, this leads to increased memory usage, which can slow down the application or even crash it.**
 
-even though it’s no longer needed.
+### 🔥 Example
+Memory leaks can occur due to:
+- Unused global variables  
+- Unremoved event listeners  
+- Closures holding unnecessary references  
 
-Over time, your program eats up all the memory — making it **slow, laggy, or even crash** 😵
-
-💡 In JavaScript, this often happens when:
-
-1. You keep unused objects or variables in memory.
-2. You forget to clear intervals or event listeners.
-3. You keep references to objects that are no longer needed.
-
-
+### ⚡ One-Line Definition
+> Memory leak is when allocated memory is not released due to existing references, causing memory usage to grow over time.
 
 ### 💻 Example of Memory Leak
 
@@ -771,14 +774,12 @@ But remember — the Garbage Collector only removes data that has **no reference
 If you still hold a reference (even accidentally), it can’t clean it — causing a leak.
 
 
-
 ### ⚙️ Summary Table
 
-| Concept | Meaning | Example | Analogy |
-| Fix formatting and typo in tree README
- | --- | --- | --- |
-| **Static Allocation** | Fixed memory decided before program runs | `let arr = [1,2,3]` | Reserved theater seats |
-| **Dynamic Allocation** | Memory changes during runtime | `arr.push(5)` | Expanding bag |
-| **Memory Leak** | Unused memory not released | Unused variables or loops | Leaving garbage on your desk |
-| **Garbage Collector** | Auto cleaner that removes unused data | `object = null` | Janitor cleaning workspace |
+| Concept              | Meaning                                      | Example              | Analogy                    |
+|---------------------|----------------------------------------------|----------------------|----------------------------|
+| Static Allocation   | Fixed memory decided before program runs     | `let arr = [1,2,3]`  | Reserved theater seats     |
+| Dynamic Allocation  | Memory changes during runtime                | `arr.push(5)`        | Expanding bag              |
+| Memory Leak         | Unused memory not released                   | Unused variables     | Leaving garbage on desk    |
+| Garbage Collector   | Auto cleaner that removes unused data        | `object = null`      | Janitor cleaning workspace |
 
