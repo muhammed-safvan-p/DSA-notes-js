@@ -369,10 +369,11 @@ console.log(linearSearch(numbers, 30)); // Output: 2
 | **Ω (Omega)** | Best case | Lower bound | Takes at least this much time |
 | **Θ (Theta)** | Average case | Tight bound | Typical expected time |
 
-### Time complexity VS Asymptotic analysis
+### 🎯 Time Complexity vs Asymptotic Analysis
 
-“Time complexity tells how much time an algorithm takes based on input size.
-Asymptotic analysis is the method we use to evaluate that time complexity for large inputs by ignoring constants and lower-order terms.”
+> **Time complexity tells how much time an algorithm takes based on input size.  
+> Asymptotic analysis is the method we use to evaluate that time complexity for large inputs by ignoring constants and lower-order terms.**
+
 
 ## 🧩 Algorithm Efficiency
 
