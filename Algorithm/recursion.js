@@ -85,4 +85,27 @@ function factorial(n) {
 }
 
 // Example
-console.log(factorial(5));
+// console.log(factorial(5));
+
+/*
+===========================================
+Question:
+Check if a string is a palindrome using recursion.
+===========================================
+
+Palindrome:
+- A string that reads the same forward and backward
+- Example: "wow", "madam"
+*/
+
+function checkPalindrome(string, end, start = 0) {
+  if (start >= end) return true;
+
+  if (string[start] !== string[end]) return false;
+
+  return checkPalindrome(string, end - 1, start + 1);
+}
+
+// Example
+let word = "wow";
+console.log(checkPalindrome(word, word.length - 1));
