@@ -107,5 +107,5 @@ function checkPalindrome(string, end, start = 0) {
 }
 
 // Example
-let word = "wow";
-console.log(checkPalindrome(word, word.length - 1));
+let words = "wow";
+// console.log(checkPalindrome(words, words.length - 1));
