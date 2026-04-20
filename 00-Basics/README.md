@@ -771,14 +771,12 @@ But remember — the Garbage Collector only removes data that has **no reference
 If you still hold a reference (even accidentally), it can’t clean it — causing a leak.
 
 
-
 ### ⚙️ Summary Table
 
-| Concept | Meaning | Example | Analogy |
-| Fix formatting and typo in tree README
- | --- | --- | --- |
-| **Static Allocation** | Fixed memory decided before program runs | `let arr = [1,2,3]` | Reserved theater seats |
-| **Dynamic Allocation** | Memory changes during runtime | `arr.push(5)` | Expanding bag |
-| **Memory Leak** | Unused memory not released | Unused variables or loops | Leaving garbage on your desk |
-| **Garbage Collector** | Auto cleaner that removes unused data | `object = null` | Janitor cleaning workspace |
+| Concept              | Meaning                                      | Example              | Analogy                    |
+|---------------------|----------------------------------------------|----------------------|----------------------------|
+| Static Allocation   | Fixed memory decided before program runs     | `let arr = [1,2,3]`  | Reserved theater seats     |
+| Dynamic Allocation  | Memory changes during runtime                | `arr.push(5)`        | Expanding bag              |
+| Memory Leak         | Unused memory not released                   | Unused variables     | Leaving garbage on desk    |
+| Garbage Collector   | Auto cleaner that removes unused data        | `object = null`      | Janitor cleaning workspace |
 
