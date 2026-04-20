@@ -716,19 +716,16 @@ Like a **rubber bag** — it expands or shrinks depending on how much you put in
 
 ## ⚡ 2. What Is a Memory Leak?
 
-A **Memory Leak** happens when your program **keeps using memory but doesn’t release it**,
+> **A memory leak happens when a program allocates memory but fails to release it even when it is no longer needed. This usually occurs because references to that memory still exist, so the garbage collector cannot free it. Over time, this leads to increased memory usage, which can slow down the application or even crash it.**
 
-even though it’s no longer needed.
+### 🔥 Example
+Memory leaks can occur due to:
+- Unused global variables  
+- Unremoved event listeners  
+- Closures holding unnecessary references  
 
-Over time, your program eats up all the memory — making it **slow, laggy, or even crash** 😵
-
-💡 In JavaScript, this often happens when:
-
-1. You keep unused objects or variables in memory.
-2. You forget to clear intervals or event listeners.
-3. You keep references to objects that are no longer needed.
-
-
+### ⚡ One-Line Definition
+> Memory leak is when allocated memory is not released due to existing references, causing memory usage to grow over time.
 
 ### 💻 Example of Memory Leak
 
