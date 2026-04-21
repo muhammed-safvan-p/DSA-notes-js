@@ -19,7 +19,6 @@ function fn(input) {
 }
 */
 
-
 /*
 ===========================================
 Question:
@@ -37,8 +36,6 @@ function reverseString(string, index, result = "") {
 // Example
 let word = "safvan";
 // console.log(reverseString(word, word.length - 1));
-
-
 
 /*
 ===========================================
@@ -65,7 +62,6 @@ function sum2(n) {
 
 // Example
 // console.log(sum2(10));
-
 
 /*
 ===========================================
@@ -109,3 +105,23 @@ function checkPalindrome(string, end, start = 0) {
 // Example
 let words = "wow";
 // console.log(checkPalindrome(words, words.length - 1));
+
+/*
+===========================================
+Question:
+Find the nth Fibonacci number using recursion.
+===========================================
+
+Fibonacci:
+- A sequence where each number is the sum of the previous two
+- Example: 0, 1, 1, 2, 3, 5, 8...
+*/
+
+function fibonacci(n) {
+  if (n <= 1) return n;
+
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// Example
+console.log(fibonacci(2));
