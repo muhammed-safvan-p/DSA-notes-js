@@ -124,4 +124,50 @@ function fibonacci(n) {
 }
 
 // Example
-console.log(fibonacci(2));
+// console.log(fibonacci(2));
+
+/*
+===========================================
+Question:
+Get all file names from a nested file system object.
+===========================================
+*/
+
+const fileSystem = {
+  name: "root",
+  files: ["file1.txt", "file2.txt"],
+  folders: [
+    {
+      name: "docs",
+      files: ["doc1.pdf", "doc2.pdf"],
+      folders: [
+        {
+          name: "personal",
+          files: ["resume.docx"],
+          folders: [],
+        },
+      ],
+    },
+    {
+      name: "images",
+      files: ["photo1.jpg", "photo2.jpg"],
+      folders: [],
+    },
+  ],
+};
+
+function getAllFiles(folder) {
+  let result = [];
+
+  result.push(...folder.files);
+
+  for (let sub of folder.folders) {
+    result.push(...getAllFiles(sub));
+  }
+
+  return result;
+}
+
+// console.log(getAllFiles(fileSystem));
+// ["file1.txt","file2.txt","doc1.pdf","doc2.pdf","resume.docx","photo1.jpg","photo2.jpg"]
+
