@@ -153,7 +153,7 @@ A **Fenwick Tree** is a **simpler and lighter version of Segment Tree**.
 | Count nodes | **O(n)** |
 
 
-## 🌳 5**. Binary Tree (BT)**
+## 🌳 **5. Binary Tree (BT)**
 
 
 A **Binary Tree** is a tree where **each node can have at most 2 children**, called **left child** and **right child**.
@@ -210,7 +210,7 @@ Example (valid BT):
 ✔ Or neither
 ---
 
-## 🌲 6**. Binary Search Tree (BST)**
+## 🌲 **6. Binary Search Tree (BST)**
 
 A **BST** is a special type of binary tree with a **strict ordering property**:
 
