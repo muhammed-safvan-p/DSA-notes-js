@@ -263,7 +263,7 @@ console.log("BST after removing duplicates:", bstWithDup);
    PROBLEM 4: FIND THE DEGREE OF A NODE
 ====================================================== */
 
-getDegree(node){
+function getDegree(node){
     let degree = 0;
 
     if(node.left)degree++;
