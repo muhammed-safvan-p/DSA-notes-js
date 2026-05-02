@@ -132,6 +132,29 @@ A **Fenwick Tree** is a **simpler and lighter version of Segment Tree**.
 
 - Prefix sums
 - Range sums (with less memory & code)
+
+9️⃣  Degenerate (Skewed) Tree
+
+👉 A **Degenerate Tree** means:
+
+- Every node has **only one child**
+
+Looks like a straight line.
+
+Example:
+
+```
+A
+ \
+  B
+   \
+    C
+```
+
+👉 Types:
+
+- Left skewed
+- Right skewed
     
     ---
     
@@ -178,6 +201,25 @@ Example (valid BT):
 
 ❌ But values are random — no ordering rule.
 ---
+
+### 🌳 Types of Binary Trees
+
+- **Full BT**: Every node has 0 or 2 children
+- **Complete BT**: All levels filled left to right
+- **Perfect BT**: All levels completely filled
+- **Binary Search Tree (BST)**: Left < Root < Right
+- **Balanced BT**: Height difference between left and right is at most 1
+- **Degenerate (Skewed) BT**: Every node has only one child (like a linked list)
+- **Heap (Binary Heap)**: A complete tree where
+    - Max Heap → Parent ≥ children
+    - Min Heap → Parent ≤ children
+
+### ⚙️ Time Complexity
+
+- **Traversal**: `O(n)`
+- **Search (BST)**: `O(log n)` average, `O(n)` worst
+
+
 ## 🌳 **Full BT vs Complete BT**
 
 ### **Full Binary Tree**
