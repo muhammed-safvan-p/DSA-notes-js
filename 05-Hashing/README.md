@@ -114,90 +114,251 @@ Since both map to index 3 → we need a solution.
 
 ### 🔥 5. Collision Handling Techniques
 
-✔ 1️⃣ Separate Chaining (MOST COMMON)
+# 1️⃣ Separate Chaining (Most Common)
 
-Each index stores a **linked list** of all collided keys.
+Separate chaining handles **hash collisions** by storing multiple key-value pairs at the same index using a **linked list**, **array**, or another collection.
 
+Instead of overwriting an existing value, all colliding entries are stored together.
+
+### Example
+
+```text
+Index 3 → [ ("John", 100) → ("Adam", 200) ]
 ```
-Index 3 → [ (“John”,100) → (“Adam”, 200) ]
-```
 
-This avoids overwriting.
+Both `"John"` and `"Adam"` produce the same hash index, so they are stored in the same bucket.
 
-- JS Example:
-    
-    ```jsx
-    class HashTable {
-      constructor(size = 10) {
-        this.table = Array.from({ length: size }, () => []);
-      }
-    
-      hash(key) {
-        let hash = 0;
-        for (let char of key) hash += char.charCodeAt(0);
-        return hash % this.table.length;
-      }
-    
-      insert(key, value) {
-        let index = this.hash(key);
-        this.table[index].push([key, value]);
-      }
-    
-      get(key) {
-        let index = this.hash(key);
-        for (let pair of this.table[index]) {
-          if (pair[0] === key) return pair[1];
-        }
-        return null;
+## Advantages
+
+- ✅ Easy to implement
+- ✅ Table doesn't fill up immediately
+- ✅ Handles multiple collisions without overwriting data
+
+## Disadvantages
+
+- ❌ Uses extra memory for storing buckets
+- ❌ Performance slows down if too many values collide in the same bucket
+
+## JavaScript Example
+
+```javascript
+class HashTable {
+  constructor(size = 10) {
+    // Create an array of empty buckets
+    this.table = Array.from({ length: size }, () => []);
+  }
+
+  hash(key) {
+    let hash = 0;
+
+    for (let char of key) {
+      hash += char.charCodeAt(0);
+    }
+
+    return hash % this.table.length;
+  }
+
+  insert(key, value) {
+    const index = this.hash(key);
+    this.table[index].push([key, value]);
+  }
+
+  get(key) {
+    const index = this.hash(key);
+
+    for (const [storedKey, storedValue] of this.table[index]) {
+      if (storedKey === key) {
+        return storedValue;
       }
     }
-    ```
-    
+
+    return null;
+  }
+}
+```
+
+## Example Usage
+
+```javascript
+const ht = new HashTable();
+
+ht.insert("John", 100);
+ht.insert("Adam", 200);
+
+console.log(ht.get("John")); // 100
+console.log(ht.get("Adam")); // 200
+```
+
+## Time Complexity
+
+| Operation | Average | Worst |
+|-----------|---------|--------|
+| Insert | O(1) | O(n) |
+| Search | O(1) | O(n) |
+| Delete | O(1) | O(n) |
+
+> **Note:** Worst-case time complexity occurs when many keys collide into the same bucket.
+
+# 2️⃣ Open Addressing (No Linked List; Store in the Next Empty Slot)
+
+Open Addressing resolves **hash collisions** by finding another empty slot within the hash table instead of storing multiple values at the same index.
+
+There are several techniques for finding the next available position.
 
 ---
 
-✔ 2️⃣ Open Addressing     (No linked list; store next empty slot)
+# 1. Linear Probing
 
-Types:
+Linear Probing checks the next available slot **sequentially** until it finds an empty position.
 
-- **Linear Probing** — index + 1 + 1 + 1
-- **Quadratic Probing** — index + 1², +2², …
-- **Double Hashing** — two hash functions
+### Formula
 
----
-
-🔹 Linear Probing Example
-
-If index 5 is full → try:
-
-```
-6 → 7 → 8 ...
+```text
+index = (hash + i) % tableSize
 ```
 
-JS Example:
+where `i = 0, 1, 2, 3...`
 
-```jsx
+### Example
+
+If index **5** is occupied:
+
+```text
+5 ❌ → 6 → 7 → 8 → ...
+```
+
+### JavaScript Example
+
+```javascript
 insert(key, value) {
   let index = this.hash(key);
+
   while (this.table[index] !== undefined) {
     index = (index + 1) % this.table.length;
   }
+
   this.table[index] = [key, value];
 }
 ```
 
+### Advantages
+
+- ✅ Very simple to implement
+- ✅ Good cache performance
+- ✅ No extra memory needed
+
+### Disadvantages
+
+- ❌ Suffers from **Primary Clustering**
+
+### What is Primary Clustering?
+
+Primary Clustering is the formation of **long consecutive groups of occupied slots**.
+
+As these clusters grow, insertion and search become slower because many consecutive slots must be checked.
+
 ---
 
-✔ Pros/Cons Summary
+# 2. Quadratic Probing
+
+Quadratic Probing checks positions using **quadratic intervals** instead of consecutive ones.
+
+The probe sequence becomes:
+
+```text
++1² → +2² → +3² → ...
+```
+
+### Formula
+
+```text
+index = (hash + i²) % tableSize
+```
+
+where `i = 0, 1, 2, 3...`
+
+### Example
+
+If index **5** is occupied:
+
+```text
+5
+↓
+6   (+1²)
+↓
+9   (+2²)
+↓
+14  (+3²)
+...
+```
+
+### Advantages
+
+- ✅ Reduces Primary Clustering
+- ✅ Better key distribution than Linear Probing
+
+### Disadvantages
+
+- ❌ Can still suffer from **Secondary Clustering**
+- ❌ Slightly more complex to implement
+- ❌ May fail to find an empty slot if the table is too full
+
+### What is Secondary Clustering?
+
+Secondary Clustering occurs when **different keys that produce the same initial hash value follow the same quadratic probing sequence**, creating smaller clusters.
+
+---
+
+# 3. Double Hashing
+
+Double Hashing uses **two hash functions**.
+
+- The first hash function finds the initial index.
+- The second hash function determines the probe step size.
+
+Because different keys usually get different step sizes, collisions are greatly reduced.
+
+### Formula
+
+```text
+index = (hash1(key) + i × hash2(key)) % tableSize
+```
+
+where `i = 0, 1, 2, 3...`
+
+### Advantages
+
+- ✅ Minimizes Primary Clustering
+- ✅ Minimizes Secondary Clustering
+- ✅ Provides excellent key distribution
+- ✅ Often the best-performing open addressing technique
+
+### Disadvantages
+
+- ❌ More difficult to implement
+- ❌ Requires two good hash functions
+
+---
+
+# Pros and Cons Summary
 
 | Method | Pros | Cons |
-| --- | --- | --- |
-| **Chaining** | Easy, flexible | Uses extra memory |
-| **Linear Probing** | Cache-friendly | Clustering happens |
-| **Quadratic** | Less clustering | Complex, can still fail |
-| **Double Hashing** | Best distribution | Harder to implement |
+|---------|------|------|
+| **Separate Chaining** | Easy to implement, flexible | Uses extra memory |
+| **Linear Probing** | Simple, cache-friendly | Primary clustering |
+| **Quadratic Probing** | Less clustering than Linear Probing | Secondary clustering, more complex |
+| **Double Hashing** | Best key distribution, minimizes clustering | Harder to implement |
 
 ---
+
+# Which Collision Handling Technique is Best?
+
+There is no single best technique—it depends on the use case.
+
+- **Separate Chaining** is the simplest and one of the most commonly used methods.
+- **Linear Probing** is easy to implement and cache-friendly but suffers from clustering.
+- **Quadratic Probing** reduces primary clustering but can still experience secondary clustering.
+- **Double Hashing** generally provides the best distribution among open addressing techniques by minimizing both primary and secondary clustering, though it is more complex to implement.
 
 ### 🔥 6. Load Factor (Important)
 
