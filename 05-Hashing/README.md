@@ -465,3 +465,108 @@ Used in:
 ✔ Security
 
 ✔ Blockchains
+
+# Load Factor
+
+## 📖 Simple Definition
+
+**Load Factor** is the ratio of the number of stored elements to the total number of slots (buckets) in a hash table.
+
+## Formula
+
+\[
+\text{Load Factor} = \frac{\text{Number of Elements}}{\text{Number of Buckets (Slots)}}
+\]
+
+Or simply:
+
+```text
+Load Factor = Number of Elements / Number of Buckets
+```
+
+---
+
+# Why is Load Factor Important?
+
+As the **load factor increases**:
+
+- ❌ More collisions
+- ❌ Slower search
+- ❌ Slower insertion
+- ❌ Slower deletion
+
+As the **load factor decreases**:
+
+- ✅ Fewer collisions
+- ✅ Better performance
+- ✅ Faster operations
+
+---
+
+# What Happens When the Load Factor Becomes Too High?
+
+Most hash table implementations **resize (rehash)** the table.
+
+### Example
+
+**Before resizing:**
+
+```text
+Buckets  = 8
+Elements = 7
+
+Load Factor = 7 / 8 = 0.875
+```
+
+This load factor is high.
+
+The hash table grows:
+
+```text
+Buckets = 16
+```
+
+Now:
+
+```text
+Load Factor = 7 / 16 = 0.4375
+```
+
+Then all existing elements are **rehashed** into the new table.
+
+This process is called **rehashing** or **resizing**.
+
+---
+
+# Common Threshold
+
+Many programming languages resize the hash table when the load factor exceeds **0.75**.
+
+```text
+Load Factor > 0.75
+        ↓
+Resize Hash Table
+```
+
+> **Note:** The exact threshold depends on the implementation. For example, Java's `HashMap` uses a default load factor of **0.75**.
+
+---
+
+# 📌 Key Points
+
+- **Formula:**
+
+  ```text
+  Load Factor = Number of Elements / Number of Buckets
+  ```
+
+- Indicates how full the hash table is.
+- Higher load factor → More collisions.
+- Lower load factor → Better performance.
+- High load factor may trigger **rehashing**.
+
+---
+
+# 🎯 One-Line Interview Answer
+
+> **Load Factor is the ratio of stored elements to available buckets in a hash table. It indicates how full the table is, and a higher load factor generally increases collisions and reduces performance.**
