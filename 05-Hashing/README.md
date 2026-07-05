@@ -239,6 +239,26 @@ insert(key, value) {
 
   this.table[index] = [key, value];
 }
+
+get(key) {
+  let index = this.hash(key);
+  const startIndex = index;
+
+  while (this.table[index] !== undefined) {
+    if (this.table[index][0] === key) {
+      return this.table[index][1];
+    }
+
+    index = (index + 1) % this.table.length;
+
+    // Stop if we've searched the entire table
+    if (index === startIndex) {
+      break;
+    }
+  }
+
+  return null;
+}
 ```
 
 ### Advantages
